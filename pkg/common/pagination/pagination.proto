@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package pagination;
+
+import "validate/validate.proto";
+
+option go_package = "gitlab.betmaker365.com/dev-viet/smm-document/api/pagination;pagination";
+
+enum CODE {
+  Success = 0;
+  ParamInvalid = 2003;
+  TimeInvalid = 2004;
+  QueryNotFound = 2005;
+  UuidInvalid = 2006;
+  NotFound = 2007;
+  DuplicateData = 2008;
+  ConflictData = 2009;
+
+  InvalidToken = 3001;
+  InvalidOTP = 3002;
+  AcceptDenied = 3003;
+  UsernameInvalid = 3004;
+  PasswordInvalid = 3005;
+
+  CantSendEmailOtp = 4003;
+  AuthFailed = 4005;
+
+  UserHasExists = 5001;
+
+  OtpNotExists = 6009;
+  UserOtpNotExists = 6008;
+
+  TwoFactorAuthSetupFailed = 8001;
+  TwoFactorAuthVerifyFailed = 8002;
+
+  InternalServerErr = 9999;
+  DatabaseErr = 9998;
+
+  AccountSer = 1001;
+  BetDataSer = 1002;
+  SubscriptionSer = 1003;
+  NotificationSer = 1004;
+  OrchestrationSer = 1005;
+}
+
+enum OP {
+  OP_LT = 0;
+  OP_LTE = 1;
+  OP_GT = 2;
+  OP_GTE = 3;
+  OP_EQ = 4;
+  OP_NEQ = 5;
+  OP_LIKE = 6;
+  OP_IS_NULL = 7;
+  OP_IS_NOT_NULL = 8;
+  OP_IN = 9;
+  OP_NOT_IN = 10;
+}
+
+message PaginationRes {
+  int32 pageIndex = 1;
+  int32 pageSize = 2;
+  int32 total = 3;
+}
+
+message PaginationReq {
+  int32 pageIndex = 1 [(validate.rules).int32.gte = 0];
+  int32 pageSize = 2 [(validate.rules).int32.gt = 0];
+}
+
+message Filter {
+  string key = 1;
+  string value = 2;
+  OP op = 3;
+}
+
+message ErrMsg {
+  string type = 1;
+  string message = 2;
+}
+
+enum SortType {
+  ASC = 0;
+  DESC = 1;
+}
+
+message SortMethod {
+  string key = 1 [(validate.rules).string = { min_len: 1 }];
+  SortType value = 2;
+}

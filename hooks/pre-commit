@@ -1,0 +1,22 @@
+#!/bin/sh
+
+echo "Running golangci-lint..."
+
+# Find all dirs in internal/, excluding 'no_get'
+DIRS=$(find service-internal -mindepth 1 -maxdepth 1 -type d ! -name 'no_get')
+
+for dir in $DIRS; do
+    BASENAME=$(basename "$dir")
+    if [ "$BASENAME" != "proto" ]; then
+        echo "Running golangci-lint in $dir"
+        (cd "$dir" && golangci-lint run)
+        if [ $? -ne 0 ]; then
+            echo "❌ golangci-lint failed in $dir"
+            exit 1
+        fi
+    else
+        echo "Skipping $dir"
+    fi
+done
+
+echo "✅ Lint passed. Proceeding with commit." 

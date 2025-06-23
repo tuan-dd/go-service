@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package pagination;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "gitlab.betmaker365.com/dev-viet/smm-document/api/pagination;pagination";
+
+message ModifiedEntity {
+  string createdBy = 1;
+  string updatedBy = 2;
+  google.protobuf.Timestamp createdAt = 3;
+  google.protobuf.Timestamp updatedAt = 4;
+}
+
+message SoftDeleteEntity {
+  string deletedBy = 1;
+  google.protobuf.Timestamp deletedAt = 2;
+}
+
+enum ObjectTypeID {
+  OBJECT_TYPE_UNSPECIFIED = 0;
+  OBJECT_TYPE_SPORT = 1;
+  OBJECT_TYPE_REGION = 2;
+  OBJECT_TYPE_COMPETITION = 3;
+  OBJECT_TYPE_MATCH = 4;
+  OBJECT_TYPE_MARKET_TYPE = 5;
+}
+
+enum MatchStatus {
+  NOT_STARTED = 0;
+  STARTED = 1;
+  COMPLETED_MATCH = 2;
+  CANCELLED_MATCH = 3;
+}
+
+enum LiveStatus {
+  NOT_AVAILABLE = 0;
+  AVAILABLE = 1;
+  COMPLETED_LIVE = 2;
+  CANCELLED_LIVE = 3;
+}
+
+enum SubscriptionType {
+  SUBSCRIPTION_TYPE_LIVE = 0;
+  SUBSCRIPTION_TYPE_PREMATCH = 1;
+}
+
+enum TypeFlag {
+  NOT_DEFINED = 0;
+  LIVE_AND_PREMATCH = 1;
+  ONLY_PREMATCH = 2;
+  ONLY_LIVE = 3;
+}
+
+enum Outcome {
+  NOT_RESULTED = 0;
+  PLACE = 1;
+  RETURN_OUTCOME = 2;
+  LOST = 3;
+  WON = 4;
+  WIN_RETURN = 5;
+  LOSE_RETURN = 6;
+}

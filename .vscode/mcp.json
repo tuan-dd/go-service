@@ -1,0 +1,9 @@
+{
+  // "servers": {
+  //   "smm-dev-server": {
+  //     "type": "stdio",
+  //     "command": "ssh",
+  //     "args": ["-i", "~/.ssh/dev-viet-test.pem", "ubuntu@18.139.147.231"]
+  //   }
+  // }
+}
